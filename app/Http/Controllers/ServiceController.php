@@ -48,11 +48,19 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Service $service)
+    public function show($id)
     {
+
+        if (!$id) {
+            return response()->json([
+                'message' => 'All bad!',
+            ]);
+        }
+
+        $serv = Service::all()->where('id', $id)->last();
         return response()->json([
             'message' => 'All good!',
-            'data' => $service
+            'data' => $serv
         ]);
     }
 

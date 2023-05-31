@@ -21,6 +21,7 @@ class ClientController extends Controller
                 'phone' => $cli->phone,
                 'adress' => $cli->adress,
                 'services' => $cli->services,
+                'id' => $cli->id,
             ];
         }
         return response()->json($cliArr);
@@ -57,14 +58,16 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Client $client)
+    public function show($clientId)
     {
-        if (!$client) {
+        if (!$clientId) {
 
             return response()->json([
                 'message' => 'Client not found!',
             ]);
         }
+
+        $client = Client::all()->where('id', $clientId)->last();
 
         $client->services;
 
